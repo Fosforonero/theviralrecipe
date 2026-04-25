@@ -172,5 +172,32 @@
     "home_description": "Discover the most shared recipes on the web: already translated, organized and optimized for you. New viral recipes every day.",
     "ranking_title": "Viral recipe rankings",
     "categories_title": "Recipes by category"
+  },
+
+  "cookies": {
+    "banner_aria_label": "Cookie consent banner",
+    "banner_title": "We use cookies 🍪",
+    "banner_description": "We use essential technical cookies and, with your consent, analytics and marketing cookies to improve the site and show relevant ads.",
+    "banner_learn_more": "Learn more",
+    "btn_accept_all": "Accept all",
+    "btn_essential_only": "Essential only",
+    "btn_customize": "Customize",
+    "btn_save_preferences": "Save preferences",
+    "modal_title": "Customize cookies",
+    "modal_close": "Close",
+    "always_on": "Always on",
+    "category_essential_label": "Essential cookies",
+    "category_essential_desc": "Required for the site to function. Includes Supabase session cookies for authentication and cookies that store your consent preferences. Cannot be disabled.",
+    "category_analytics_label": "Analytics cookies",
+    "category_analytics_desc": "Help us understand how users interact with the site via Google Analytics 4. Data is aggregated and anonymized. No personal data is shared with third parties.",
+    "category_marketing_label": "Marketing cookies",
+    "category_marketing_desc": "Used by Google AdSense to show you relevant ads based on your interests. Pro users see no ads. You can disable these cookies without losing any site functionality."
+  },
+
+  "legal": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "cookie": "Cookie Policy",
+    "contact": "Contact"
   }
 }

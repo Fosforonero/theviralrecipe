@@ -55,5 +55,21 @@ export const routing = defineRouting({
       it: '/cerca',
       en: '/search',
     },
+
+    // Pagine legali
+    '/privacy': {
+      it: '/privacy',
+      en: '/privacy',
+    },
+
+    '/termini': {
+      it: '/termini',
+      en: '/terms',
+    },
+
+    '/cookie': {
+      it: '/cookie',
+      en: '/cookie',
+    },
   },
 });

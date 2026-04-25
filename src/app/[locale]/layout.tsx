@@ -6,6 +6,8 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { CookieConsent } from '@/components/legal/CookieConsent';
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 import { Toaster } from 'react-hot-toast';
 import { cn } from '@/lib/utils';
 import '../globals.css';
@@ -194,6 +196,12 @@ export default async function LocaleLayout({
               },
             }}
           />
+
+          {/* GDPR Cookie Consent Banner */}
+          <CookieConsent />
+
+          {/* Google Analytics 4 — si attiva solo dopo consenso */}
+          <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
         </NextIntlClientProvider>
       </body>
     </html>

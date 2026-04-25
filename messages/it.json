@@ -172,5 +172,32 @@
     "home_description": "Scopri le ricette più condivise del web: già tradotte, organizzate e ottimizzate per te. Nuove ricette virali ogni giorno.",
     "ranking_title": "Classifica ricette virali",
     "categories_title": "Ricette per categoria"
+  },
+
+  "cookies": {
+    "banner_aria_label": "Banner consenso cookie",
+    "banner_title": "Utilizziamo i cookie 🍪",
+    "banner_description": "Usiamo cookie tecnici essenziali e, con il tuo consenso, cookie analitici e di marketing per migliorare il sito e mostrare annunci pertinenti.",
+    "banner_learn_more": "Scopri di più",
+    "btn_accept_all": "Accetta tutto",
+    "btn_essential_only": "Solo essenziali",
+    "btn_customize": "Personalizza",
+    "btn_save_preferences": "Salva preferenze",
+    "modal_title": "Personalizza i cookie",
+    "modal_close": "Chiudi",
+    "always_on": "Sempre attivo",
+    "category_essential_label": "Cookie essenziali",
+    "category_essential_desc": "Necessari per il funzionamento del sito. Includono i cookie di sessione Supabase per l'autenticazione e i cookie che memorizzano le tue preferenze di consenso. Non possono essere disattivati.",
+    "category_analytics_label": "Cookie analitici",
+    "category_analytics_desc": "Ci aiutano a capire come gli utenti interagiscono con il sito tramite Google Analytics 4. I dati sono aggregati e anonimizzati. Nessun dato personale viene condiviso con terzi.",
+    "category_marketing_label": "Cookie di marketing",
+    "category_marketing_desc": "Utilizzati da Google AdSense per mostrarti annunci pertinenti basati sui tuoi interessi. Gli utenti Pro non vedono pubblicità. Puoi disattivare questi cookie senza perdere funzionalità del sito."
+  },
+
+  "legal": {
+    "privacy": "Privacy Policy",
+    "terms": "Termini e Condizioni",
+    "cookie": "Cookie Policy",
+    "contact": "Contatti"
   }
 }

@@ -14,10 +14,10 @@ export function Footer({ locale }: FooterProps) {
     categories: `/${locale}/${isIT ? 'categorie' : 'categories'}`,
     pro:        `/${locale}/pro`,
     creator:    `/${locale}/creator`,
-    about:      `/${locale}/${isIT ? 'chi-siamo' : 'about'}`,
     privacy:    `/${locale}/privacy`,
     terms:      `/${locale}/${isIT ? 'termini' : 'terms'}`,
-    contact:    `/${locale}/${isIT ? 'contatti' : 'contact'}`,
+    cookie:     `/${locale}/cookie`,
+    contact:    'mailto:brand@theviralrecipe.com',
   };
 
   return (
@@ -67,9 +67,9 @@ export function Footer({ locale }: FooterProps) {
           <div>
             <h4 className="font-semibold text-white text-sm mb-4">Info</h4>
             <ul className="space-y-2.5">
-              <FooterLink href={links.about}   label={isIT ? 'Chi siamo' : 'About us'} />
               <FooterLink href={links.privacy} label="Privacy Policy" />
               <FooterLink href={links.terms}   label={isIT ? 'Termini di servizio' : 'Terms of service'} />
+              <FooterLink href={links.cookie}  label="Cookie Policy" />
               <FooterLink href={links.contact} label={isIT ? 'Contatti' : 'Contact'} />
             </ul>
           </div>
