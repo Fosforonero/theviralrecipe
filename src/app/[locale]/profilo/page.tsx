@@ -41,7 +41,9 @@ export default async function ProfiloPage({
       .order('saved_at', { ascending: false })
       .limit(12);
 
-    savedRecipes = (data ?? []).map((d) => d.recipe).filter(Boolean) as RecipeCardData[];
+    savedRecipes = (data ?? [])
+      .flatMap((d: any) => (Array.isArray(d?.recipe) ? d.recipe : d?.recipe ? [d.recipe] : []))
+      .filter(Boolean) as RecipeCardData[];
   }
 
   if (tab === 'collections') {
