@@ -213,8 +213,8 @@ export default async function RecipePage({
             <InfoChip
               icon={<ChefHat className="w-4 h-4" />}
               label={isIT
-                ? { facile: 'Facile', medio: 'Medio', difficile: 'Difficile' }[recipe.difficulty] ?? recipe.difficulty
-                : { facile: 'Easy', medio: 'Medium', difficile: 'Hard' }[recipe.difficulty] ?? recipe.difficulty
+                ? ({ facile: 'Facile', medio: 'Medio', difficile: 'Difficile' } as Record<string, string>)[recipe.difficulty] ?? recipe.difficulty
+                : ({ facile: 'Easy', medio: 'Medium', difficile: 'Hard' } as Record<string, string>)[recipe.difficulty] ?? recipe.difficulty
               }
             />
             <div className="flex items-center gap-1.5 text-sm text-text-secondary">

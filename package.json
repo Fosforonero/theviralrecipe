@@ -11,7 +11,7 @@
     "supabase:types": "supabase gen types typescript --project-id $SUPABASE_PROJECT_ID > src/lib/supabase/types.ts"
   },
   "dependencies": {
-    "next": "14.2.0",
+    "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18",
     "next-intl": "^3.14.0",
@@ -24,8 +24,7 @@
     "tailwind-merge": "^2.3.0",
     "framer-motion": "^11.2.10",
     "react-hot-toast": "^2.4.1",
-    "sharp": "^0.33.4",
-    "@anthropic-ai/sdk": "^0.24.0"
+    "sharp": "^0.33.4"
   },
   "devDependencies": {
     "typescript": "^5",
@@ -36,6 +35,6 @@
     "postcss": "^8",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
-    "eslint-config-next": "14.2.0"
+    "eslint-config-next": "14.2.35"
   }
 }
