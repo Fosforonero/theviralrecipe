@@ -120,7 +120,7 @@ export async function GET(
           </p>
 
           {/* Metriche */}
-          {recipe?.votes_count > 0 && (
+          {recipe && recipe.votes_count > 0 && (
             <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '22px', margin: 0 }}>
               ❤️ {recipe.votes_count.toLocaleString()} voti
             </p>
