@@ -1,0 +1,176 @@
+{
+  "nav": {
+    "home": "Home",
+    "classifica": "Classifica",
+    "categorie": "Categorie",
+    "cerca": "Cerca ricette...",
+    "profilo": "Il mio profilo",
+    "pro": "Passa a Pro",
+    "logout": "Esci",
+    "login": "Accedi"
+  },
+
+  "home": {
+    "hero_title": "Le ricette più virali del web",
+    "hero_subtitle": "Scopri cosa sta cucinando tutto il mondo su TikTok, Instagram e YouTube — già organizzato e pronto per te.",
+    "hero_cta": "Esplora le ricette",
+    "trending_title": "🔥 Trending questa settimana",
+    "new_title": "✨ Appena aggiunte",
+    "categories_title": "Esplora per categoria",
+    "creators_title": "👨‍🍳 Ricette dai Creator"
+  },
+
+  "recipe": {
+    "ingredients": "Ingredienti",
+    "procedure": "Procedimento",
+    "tips": "Tips e varianti",
+    "source": "Ricetta originale",
+    "difficulty": "Difficoltà",
+    "time": "Tempo",
+    "servings": "Porzioni",
+    "time_prep": "Preparazione",
+    "time_cook": "Cottura",
+    "time_total": "Totale",
+    "minutes": "{count} min",
+    "servings_count": "{count} persone",
+    "vote": "Vota questa ricetta",
+    "voted": "Votata! ❤️",
+    "save": "Salva",
+    "saved": "Salvata",
+    "share": "Condividi",
+    "made_it": "L'ho fatta!",
+    "made_count": "{count} persone l'hanno fatta",
+    "votes_count": "{count} voti",
+    "views_count": "{count} visualizzazioni",
+    "nutrition": "Valori nutrizionali",
+    "nutrition_pro": "Sblocca i valori nutrizionali con Pro",
+    "per_serving": "Per porzione",
+    "calories": "Calorie",
+    "protein": "Proteine",
+    "carbs": "Carboidrati",
+    "fat": "Grassi",
+    "fiber": "Fibre",
+    "difficulty_easy": "Facile",
+    "difficulty_medium": "Medio",
+    "difficulty_hard": "Difficile",
+    "similar": "Ricette simili",
+    "from_creator": "Di",
+    "source_label": "Fonte originale",
+    "source_view": "Guarda il post originale"
+  },
+
+  "categories": {
+    "title": "Tutte le categorie",
+    "antipasti": "Antipasti",
+    "primi": "Primi piatti",
+    "secondi": "Secondi",
+    "contorni": "Contorni",
+    "dolci": "Dolci",
+    "bevande": "Bevande",
+    "snack": "Snack",
+    "colazione": "Colazione",
+    "condimenti": "Condimenti"
+  },
+
+  "ranking": {
+    "title": "Classifica ricette",
+    "tab_weekly": "Settimana",
+    "tab_monthly": "Mese",
+    "tab_alltime": "Di sempre",
+    "tab_trending": "Trending ora",
+    "position": "#{position}"
+  },
+
+  "auth": {
+    "login_title": "Accedi a TheViralRecipe",
+    "login_google": "Continua con Google",
+    "login_email": "Continua con email",
+    "signup_title": "Crea il tuo account",
+    "email_placeholder": "La tua email",
+    "password_placeholder": "Password",
+    "confirm_password": "Conferma password",
+    "forgot_password": "Password dimenticata?",
+    "no_account": "Non hai un account?",
+    "has_account": "Hai già un account?"
+  },
+
+  "pro": {
+    "title": "Passa a TheViralRecipe Pro",
+    "subtitle": "Tutto quello di cui hai bisogno per cucinare meglio",
+    "price": "4,99€",
+    "price_period": "/mese",
+    "cta": "Inizia il periodo di prova",
+    "features": {
+      "no_ads": "Zero pubblicità",
+      "nutrition": "Valori nutrizionali di ogni ricetta",
+      "save_unlimited": "Salvataggio ricette illimitato",
+      "collections": "Raccolte personali illimitate",
+      "shopping_list": "Lista della spesa automatica",
+      "early_access": "Accesso anticipato alle ricette virali",
+      "badge": "Badge Pro sul profilo"
+    }
+  },
+
+  "creator": {
+    "title": "Sei un food creator?",
+    "subtitle": "Pubblica le tue ricette, raggiungi milioni di persone e guadagna",
+    "free_plan": "Piano Gratuito",
+    "pro_plan": "Piano Pro Creator",
+    "brand_plan": "Brand Partner",
+    "claimed_badge": "✓ Creator Verificato",
+    "recipes_count": "{count} ricette",
+    "views_total": "{count} visualizzazioni totali",
+    "submit_recipe": "Invia una ricetta",
+    "my_dashboard": "Dashboard Creator"
+  },
+
+  "profile": {
+    "saved_recipes": "Ricette salvate",
+    "my_collections": "Le mie raccolte",
+    "shopping_lists": "Liste della spesa",
+    "made_recipes": "Ricette fatte",
+    "settings": "Impostazioni",
+    "plan_free": "Piano Free",
+    "plan_pro": "Piano Pro ⭐",
+    "upgrade_cta": "Passa a Pro"
+  },
+
+  "search": {
+    "placeholder": "Cerca una ricetta...",
+    "results_count": "{count} risultati per \"{query}\"",
+    "no_results": "Nessuna ricetta trovata per \"{query}\"",
+    "try_filters": "Prova a modificare i filtri",
+    "filters": "Filtri",
+    "filter_category": "Categoria",
+    "filter_tags": "Tag",
+    "filter_difficulty": "Difficoltà",
+    "filter_time": "Tempo massimo"
+  },
+
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Qualcosa è andato storto",
+    "retry": "Riprova",
+    "back": "Indietro",
+    "see_all": "Vedi tutte",
+    "share_text": "Ho trovato questa ricetta virale su TheViralRecipe:",
+    "copied": "Link copiato!",
+    "minutes_short": "min",
+    "pro_badge": "PRO",
+    "new_badge": "NUOVO",
+    "viral_badge": "VIRALE",
+    "featured_badge": "IN EVIDENZA",
+    "trending_up": "In crescita",
+    "rank_1": "🥇",
+    "rank_2": "🥈",
+    "rank_3": "🥉"
+  },
+
+  "meta": {
+    "site_name": "TheViralRecipe",
+    "home_title": "Le ricette più virali di TikTok, Instagram e YouTube",
+    "home_description": "Scopri le ricette più condivise del web: già tradotte, organizzate e ottimizzate per te. Nuove ricette virali ogni giorno.",
+    "ranking_title": "Classifica ricette virali",
+    "categories_title": "Ricette per categoria"
+  }
+}

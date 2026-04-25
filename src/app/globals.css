@@ -1,0 +1,269 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── VARIABILI CSS GLOBALI ───────────────────────────────────────── */
+:root {
+  /* Altezza header (usata per padding-top delle pagine) */
+  --header-height: 64px;
+
+  /* Scroll behavior */
+  scroll-behavior: smooth;
+}
+
+/* ── BASE ────────────────────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    /* Migliora la leggibilità del testo */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+  }
+
+  body {
+    background-color: #F8F5F0;
+    color: #1C1C1E;
+    /* Evita layout shift da scrollbar */
+    overflow-y: scroll;
+  }
+
+  /* Immagini responsive di default */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Focus visibile per accessibilità keyboard */
+  :focus-visible {
+    outline: 2px solid #FF3A2D;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Rimuove outline di default (sostituito da focus-visible) */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Headings con font display */
+  h1, h2, h3 {
+    font-family: var(--font-jakarta), system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  h4, h5, h6 {
+    font-family: var(--font-jakarta), system-ui, sans-serif;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  /* Links base */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+
+/* ── COMPONENTI RIUTILIZZABILI ───────────────────────────────────── */
+@layer components {
+  /* Container principale */
+  .container-main {
+    @apply mx-auto max-w-container px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Container stretto (per articoli/ricette) */
+  .container-content {
+    @apply mx-auto max-w-content px-4 sm:px-6;
+  }
+
+  /* Bottone primario */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5 rounded-xl
+           bg-brand-500 text-white font-semibold text-sm
+           hover:bg-brand-600 active:scale-[0.98]
+           transition-all duration-150
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Bottone secondario */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5 rounded-xl
+           bg-background-card text-text-primary font-semibold text-sm
+           border border-border
+           hover:border-border-strong hover:bg-background-muted
+           active:scale-[0.98]
+           transition-all duration-150
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1
+           px-2.5 py-0.5 rounded-full
+           text-xs font-semibold
+           tracking-wide uppercase;
+  }
+
+  .badge-brand {
+    @apply badge bg-brand-100 text-brand-600;
+  }
+
+  .badge-pro {
+    @apply badge bg-gradient-brand text-white;
+  }
+
+  .badge-new {
+    @apply badge bg-green-100 text-green-700;
+  }
+
+  .badge-viral {
+    @apply badge bg-orange-100 text-orange-700;
+  }
+
+  /* Card base */
+  .card {
+    @apply bg-background-card rounded-2xl shadow-card
+           border border-border overflow-hidden
+           transition-all duration-200
+           hover:shadow-card-hover hover:-translate-y-0.5;
+  }
+
+  /* Gradient overlay per le immagini (leggibilità del testo sopra) */
+  .img-gradient {
+    @apply absolute inset-0 bg-gradient-card pointer-events-none;
+  }
+
+  /* Skeleton loader */
+  .skeleton {
+    @apply bg-background-muted rounded-lg animate-shimmer;
+    background-size: 200% 100%;
+    background-image: linear-gradient(90deg, #F0EDE8 25%, #F8F5F0 50%, #F0EDE8 75%);
+  }
+
+  /* Sezione con titolo */
+  .section-title {
+    @apply text-2xl sm:text-3xl font-bold text-text-primary
+           tracking-tight mb-6;
+  }
+
+  /* Divider */
+  .divider {
+    @apply border-t border-border my-6;
+  }
+
+  /* Input base */
+  .input-base {
+    @apply w-full px-4 py-3 rounded-xl
+           bg-background-card border border-border
+           text-text-primary placeholder:text-text-muted
+           focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent
+           transition-all duration-150;
+  }
+}
+
+
+/* ── UTILITIES CUSTOM ────────────────────────────────────────────── */
+@layer utilities {
+  /* Testo con gradiente brand */
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #FF3A2D 0%, #FF8C00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Testo con font display (Fraunces serif) */
+  .font-display-title {
+    font-family: var(--font-fraunces);
+    font-style: italic;
+    font-weight: 700;
+  }
+
+  /* Scroll orizzontale senza scrollbar visibile */
+  .scroll-x-hidden {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scroll-x-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Line clamp utilities (compatibilità) */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Aspect ratio per le card ricette */
+  .aspect-recipe {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Padding top per compensare l'header fisso */
+  .pt-header {
+    padding-top: var(--header-height);
+  }
+}
+
+
+/* ── ANIMAZIONI ──────────────────────────────────────────────────── */
+
+/* Stagger animation per le grid cards */
+.card-grid > *:nth-child(1) { animation-delay: 0ms; }
+.card-grid > *:nth-child(2) { animation-delay: 50ms; }
+.card-grid > *:nth-child(3) { animation-delay: 100ms; }
+.card-grid > *:nth-child(4) { animation-delay: 150ms; }
+.card-grid > *:nth-child(5) { animation-delay: 200ms; }
+.card-grid > *:nth-child(6) { animation-delay: 250ms; }
+.card-grid > *:nth-child(7) { animation-delay: 300ms; }
+.card-grid > *:nth-child(8) { animation-delay: 350ms; }
+.card-grid > *:nth-child(9) { animation-delay: 400ms; }
+
+
+/* ── SCROLLBAR GLOBALE (Webkit) ──────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C8C4BE;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #AEAEB2;
+}
