@@ -66,7 +66,9 @@ export default async function CategoryPage({
     .in('recipe_id', recipes?.map((r) => r.id) ?? []);
 
   const uniqueTags = [...new Map(
-    (tagData ?? []).flatMap((rt) => (rt.tags ? [rt.tags] : [])).map((t) => [t.slug, t])
+    (tagData ?? [])
+      .flatMap((rt: any) => (Array.isArray(rt?.tags) ? rt.tags : rt?.tags ? [rt.tags] : []))
+      .map((t: any) => [t.slug, t] as const)
   ).values()];
 
   const categoriesUrl = `/${locale}/${isIT ? 'categorie' : 'categories'}`;
