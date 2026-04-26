@@ -34,6 +34,16 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'avatars.githubusercontent.com',
       },
+      // Foto seed da Unsplash (per ricette demo)
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      // Replicate (immagini AI generate dalla pipeline)
+      {
+        protocol: 'https',
+        hostname: '*.replicate.delivery',
+      },
     ],
     // Formati moderni per performance
     formats: ['image/avif', 'image/webp'],
