@@ -1,361 +1,307 @@
-import { Suspense } from 'react';
-import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
-import { Flame, TrendingUp, Sparkles, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { RecipeCard, RecipeCardSkeleton, type RecipeCardData } from '@/components/recipe/RecipeCard';
-import { cn } from '@/lib/utils';
 
-// ── METADATA SEO ─────────────────────────────────────────────────────
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta' });
+export const metadata: Metadata = {
+  title: 'TheViralRecipe — Le ricette più virali del web',
+  description: 'Le ricette più virali di TikTok, Instagram e YouTube. In arrivo.',
+};
 
-  return {
-    title: t('home_title'),
-    description: t('home_description'),
-    openGraph: {
-      title: t('home_title'),
-      description: t('home_description'),
-      images: [{ url: '/og/home.jpg', width: 1200, height: 630 }],
-    },
-  };
-}
-
-
-// ── HOME PAGE ─────────────────────────────────────────────────────────
 export default async function HomePage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale });
   const isIT = locale === 'it';
 
-  // URL localizzati
-  const rankingUrl    = `/${locale}/${isIT ? 'classifica' : 'ranking'}`;
-  const categoriesUrl = `/${locale}/${isIT ? 'categorie' : 'categories'}`;
-
   return (
-    <div className="pt-header">
-      {/* ── HERO ───────────────────────────────────────────────────── */}
-      <HeroSection locale={locale} />
+    <div className="min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center relative overflow-hidden">
 
-      {/* ── TRENDING QUESTA SETTIMANA ──────────────────────────────── */}
-      <section className="py-12 sm:py-16">
-        <div className="container-main">
-          <SectionHeader
-            title={t('home.trending_title')}
-            href={rankingUrl}
-            label={t('common.see_all')}
-          />
-          <Suspense fallback={<RecipeGridSkeleton count={6} />}>
-            <TrendingRecipes locale={locale} />
-          </Suspense>
-        </div>
-      </section>
-
-      {/* ── BANNER PRO ──────────────────────────────────────────────── */}
-      <ProBanner locale={locale} />
-
-      {/* ── ULTIME RICETTE AGGIUNTE ─────────────────────────────────── */}
-      <section className="py-12 sm:py-16 bg-background-muted">
-        <div className="container-main">
-          <SectionHeader
-            title={t('home.new_title')}
-            href={rankingUrl + '?sort=new'}
-            label={t('common.see_all')}
-          />
-          <Suspense fallback={<RecipeGridSkeleton count={6} />}>
-            <NewestRecipes locale={locale} />
-          </Suspense>
-        </div>
-      </section>
-
-      {/* ── CATEGORIE ──────────────────────────────────────────────── */}
-      <section className="py-12 sm:py-16">
-        <div className="container-main">
-          <SectionHeader
-            title={t('home.categories_title')}
-            href={categoriesUrl}
-            label={t('common.see_all')}
-          />
-          <CategoryGrid locale={locale} />
-        </div>
-      </section>
-    </div>
-  );
-}
-
-
-// ── HERO SECTION ──────────────────────────────────────────────────────
-function HeroSection({ locale }: { locale: string }) {
-  const isIT = locale === 'it';
-  const searchUrl = `/${locale}/${isIT ? 'cerca' : 'search'}`;
-  const rankingUrl = `/${locale}/${isIT ? 'classifica' : 'ranking'}`;
-
-  return (
-    <section className="relative py-20 sm:py-28 overflow-hidden">
-      {/* Background decorativo */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Blob gradiente principale */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-100 rounded-full blur-3xl opacity-50 -translate-y-1/2" />
-        <div className="absolute top-1/2 right-0 w-72 h-72 bg-accent-100 rounded-full blur-3xl opacity-40" />
-        {/* Pattern dots */}
+      {/* ── SFONDO ANIMATO ──────────────────────────────────────────── */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Blob principale rosso */}
+        <div
+          className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20"
+          style={{
+            background: 'radial-gradient(circle, #FF3A2D 0%, transparent 70%)',
+            filter: 'blur(80px)',
+            animation: 'pulse 6s ease-in-out infinite',
+          }}
+        />
+        {/* Blob arancio a destra */}
+        <div
+          className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full opacity-15"
+          style={{
+            background: 'radial-gradient(circle, #FF8C00 0%, transparent 70%)',
+            filter: 'blur(60px)',
+            animation: 'pulse 8s ease-in-out infinite 2s',
+          }}
+        />
+        {/* Grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px',
+          }}
+        />
+        {/* Noise overlay */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: 'radial-gradient(circle, #FF3A2D 1px, transparent 1px)',
-            backgroundSize: '32px 32px',
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")',
           }}
         />
       </div>
 
-      <div className="container-main relative z-10 text-center">
-        {/* Pill badge "New" */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-50 text-brand-600 text-sm font-semibold rounded-full border border-brand-100 mb-6 animate-fade-in">
-          <Flame className="w-3.5 h-3.5" />
-          {locale === 'it' ? 'Nuove ricette ogni giorno' : 'New recipes every day'}
+      {/* ── CONTENUTO CENTRALE ─────────────────────────────────────── */}
+      <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
+
+        {/* Logo / wordmark */}
+        <div className="flex items-center justify-center gap-3 mb-12">
+          <div
+            className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-2xl"
+            style={{ background: 'linear-gradient(135deg, #FF3A2D 0%, #FF8C00 100%)' }}
+          >
+            🔥
+          </div>
+          <span className="text-white font-black text-2xl tracking-tight">
+            TheViral<span style={{ color: '#FF3A2D' }}>Recipe</span>
+          </span>
         </div>
 
-        {/* Titolo principale */}
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text-primary tracking-tight mb-6 animate-fade-in-up max-w-4xl mx-auto">
-          {locale === 'it' ? (
+        {/* Badge */}
+        <div
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-8"
+          style={{
+            background: 'rgba(255,58,45,0.12)',
+            border: '1px solid rgba(255,58,45,0.3)',
+            color: '#FF6B5B',
+          }}
+        >
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{
+              background: '#FF3A2D',
+              boxShadow: '0 0 6px #FF3A2D',
+              animation: 'blink 1.5s ease-in-out infinite',
+            }}
+          />
+          {isIT ? 'In costruzione' : 'Under construction'}
+        </div>
+
+        {/* Headline */}
+        <h1
+          className="font-black text-white mb-6 leading-[1.05]"
+          style={{
+            fontSize: 'clamp(2.5rem, 8vw, 5rem)',
+            letterSpacing: '-0.03em',
+          }}
+        >
+          {isIT ? (
             <>
               Le ricette più{' '}
-              <span className="font-display-title text-gradient-brand italic">virali</span>
+              <span
+                style={{
+                  background: 'linear-gradient(135deg, #FF3A2D 0%, #FF8C00 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  fontStyle: 'italic',
+                }}
+              >
+                virali
+              </span>
               {' '}del web
             </>
           ) : (
             <>
               The most{' '}
-              <span className="font-display-title text-gradient-brand italic">viral</span>
+              <span
+                style={{
+                  background: 'linear-gradient(135deg, #FF3A2D 0%, #FF8C00 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  fontStyle: 'italic',
+                }}
+              >
+                viral
+              </span>
               {' '}recipes on the web
             </>
           )}
         </h1>
 
         {/* Sottotitolo */}
-        <p className="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-10 animate-fade-in-up">
-          {locale === 'it'
-            ? 'Scopri cosa sta cucinando tutto il mondo su TikTok, Instagram e YouTube — già organizzato e pronto per te.'
-            : 'Discover what the whole world is cooking on TikTok, Instagram and YouTube — already organized and ready for you.'}
+        <p
+          className="text-lg sm:text-xl mb-12 leading-relaxed"
+          style={{ color: 'rgba(255,255,255,0.5)' }}
+        >
+          {isIT
+            ? 'Stiamo costruendo qualcosa di straordinario. TikTok, Instagram, YouTube — tutte le ricette che stanno impazzendo sul web, in un unico posto.'
+            : "We're building something extraordinary. TikTok, Instagram, YouTube — all the recipes going viral, in one place."}
         </p>
 
-        {/* CTA buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 animate-fade-in-up">
-          <Link href={rankingUrl} className="btn-primary text-base px-8 py-3.5 rounded-2xl shadow-glow-brand">
-            <Flame className="w-5 h-5" />
-            {locale === 'it' ? 'Esplora le ricette' : 'Explore recipes'}
-          </Link>
-          <Link href={searchUrl} className="btn-secondary text-base px-8 py-3.5 rounded-2xl">
-            {locale === 'it' ? 'Cerca una ricetta' : 'Search a recipe'}
-          </Link>
+        {/* Piattaforme */}
+        <div className="flex items-center justify-center gap-6 mb-12">
+          {[
+            { icon: '🎵', label: 'TikTok' },
+            { icon: '📸', label: 'Instagram' },
+            { icon: '▶️', label: 'YouTube' },
+          ].map((p) => (
+            <div
+              key={p.label}
+              className="flex flex-col items-center gap-2"
+            >
+              <div
+                className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl"
+                style={{
+                  background: 'rgba(255,255,255,0.06)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  backdropFilter: 'blur(8px)',
+                }}
+              >
+                {p.icon}
+              </div>
+              <span className="text-xs font-medium" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                {p.label}
+              </span>
+            </div>
+          ))}
         </div>
 
-        {/* Social proof */}
-        <p className="mt-8 text-sm text-text-muted animate-fade-in">
-          {locale === 'it'
-            ? '✓ Nuove ricette ogni giorno · ✓ Sempre gratis · ✓ Senza registrazione'
-            : '✓ New recipes daily · ✓ Always free · ✓ No signup needed'}
-        </p>
-      </div>
-    </section>
-  );
-}
+        {/* Stats cards */}
+        <div className="grid grid-cols-3 gap-4 mb-14">
+          {[
+            { value: '15+', label: isIT ? 'Ricette seed' : 'Seed recipes' },
+            { value: '8', label: isIT ? 'Categorie' : 'Categories' },
+            { value: '3', label: isIT ? 'Piattaforme' : 'Platforms' },
+          ].map((s) => (
+            <div
+              key={s.label}
+              className="rounded-2xl p-4"
+              style={{
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.07)',
+              }}
+            >
+              <div
+                className="text-2xl sm:text-3xl font-black mb-1"
+                style={{
+                  background: 'linear-gradient(135deg, #FF3A2D 0%, #FF8C00 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                {s.value}
+              </div>
+              <div className="text-xs font-medium" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                {s.label}
+              </div>
+            </div>
+          ))}
+        </div>
 
-
-// ── TRENDING RECIPES (Server Component con fetch Supabase) ─────────────
-async function TrendingRecipes({ locale }: { locale: string }) {
-  const supabase = await createServerSupabaseClient();
-
-  const { data: recipes, error } = await supabase
-    .from('recipes')
-    .select(`
-      id, title_it, title_en, slug_it, slug_en, image_url,
-      category, difficulty, time_total_minutes,
-      votes_count, views_count, saves_count,
-      source_platform, source_author, viral_score, is_featured
-    `)
-    .eq('is_published', true)
-    .order('viral_score', { ascending: false })
-    .limit(6);
-
-  if (error || !recipes?.length) {
-    return <EmptyRecipes locale={locale} />;
-  }
-
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 card-grid">
-      {recipes.map((recipe, i) => (
-        <RecipeCard
-          key={recipe.id}
-          recipe={recipe as RecipeCardData}
-          locale={locale}
-          variant={i === 0 ? 'featured' : 'default'}
-          className={i === 0 ? 'sm:col-span-2 lg:col-span-1' : undefined}
-        />
-      ))}
-    </div>
-  );
-}
-
-// ── NEWEST RECIPES ─────────────────────────────────────────────────────
-async function NewestRecipes({ locale }: { locale: string }) {
-  const supabase = await createServerSupabaseClient();
-
-  const { data: recipes, error } = await supabase
-    .from('recipes')
-    .select(`
-      id, title_it, title_en, slug_it, slug_en, image_url,
-      category, difficulty, time_total_minutes,
-      votes_count, views_count, saves_count,
-      source_platform, source_author, viral_score, is_featured
-    `)
-    .eq('is_published', true)
-    .order('published_at', { ascending: false })
-    .limit(6);
-
-  if (error || !recipes?.length) {
-    return <EmptyRecipes locale={locale} />;
-  }
-
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 card-grid">
-      {recipes.map((recipe) => (
-        <RecipeCard
-          key={recipe.id}
-          recipe={recipe as RecipeCardData}
-          locale={locale}
-        />
-      ))}
-    </div>
-  );
-}
-
-
-// ── CATEGORY GRID ──────────────────────────────────────────────────────
-function CategoryGrid({ locale }: { locale: string }) {
-  const isIT = locale === 'it';
-
-  const categories = [
-    { slug: 'antipasti', emoji: '🥗', label: isIT ? 'Antipasti' : 'Appetizers', color: 'from-orange-400 to-orange-500' },
-    { slug: 'primi',     emoji: '🍝', label: isIT ? 'Primi' : 'First courses', color: 'from-yellow-400 to-amber-500' },
-    { slug: 'secondi',   emoji: '🥩', label: isIT ? 'Secondi' : 'Mains',        color: 'from-red-400 to-rose-500' },
-    { slug: 'contorni',  emoji: '🥦', label: isIT ? 'Contorni' : 'Sides',       color: 'from-green-400 to-emerald-500' },
-    { slug: 'dolci',     emoji: '🍰', label: isIT ? 'Dolci' : 'Desserts',       color: 'from-pink-400 to-rose-400' },
-    { slug: 'bevande',   emoji: '🥤', label: isIT ? 'Bevande' : 'Drinks',       color: 'from-blue-400 to-cyan-500' },
-    { slug: 'snack',     emoji: '🍿', label: isIT ? 'Snack' : 'Snacks',         color: 'from-purple-400 to-violet-500' },
-    { slug: 'colazione', emoji: '🥐', label: isIT ? 'Colazione' : 'Breakfast',  color: 'from-amber-400 to-yellow-500' },
-  ];
-
-  const baseUrl = `/${locale}/${isIT ? 'categorie' : 'categories'}`;
-
-  return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-      {categories.map((cat) => (
-        <Link
-          key={cat.slug}
-          href={`${baseUrl}/${cat.slug}`}
-          className="group flex flex-col items-center gap-3 p-5 bg-background-card rounded-2xl border border-border hover:border-brand-200 hover:shadow-card-hover transition-all duration-200"
-        >
-          <div className={cn(
-            'w-12 h-12 rounded-2xl bg-gradient-to-br flex items-center justify-center text-2xl shadow-sm group-hover:scale-110 transition-transform duration-200',
-            cat.color
-          )}>
-            {cat.emoji}
+        {/* Barra di progresso */}
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.35)' }}>
+              {isIT ? 'Completamento' : 'Progress'}
+            </span>
+            <span className="text-xs font-bold" style={{ color: '#FF6B5B' }}>78%</span>
           </div>
-          <span className="text-sm font-semibold text-text-primary text-center leading-tight">
-            {cat.label}
-          </span>
-        </Link>
-      ))}
-    </div>
-  );
-}
+          <div
+            className="w-full h-1.5 rounded-full overflow-hidden"
+            style={{ background: 'rgba(255,255,255,0.08)' }}
+          >
+            <div
+              className="h-full rounded-full"
+              style={{
+                width: '78%',
+                background: 'linear-gradient(90deg, #FF3A2D 0%, #FF8C00 100%)',
+                boxShadow: '0 0 12px rgba(255,58,45,0.5)',
+              }}
+            />
+          </div>
+        </div>
 
-
-// ── PRO BANNER ─────────────────────────────────────────────────────────
-function ProBanner({ locale }: { locale: string }) {
-  const isIT = locale === 'it';
-
-  return (
-    <section className="py-8">
-      <div className="container-main">
-        <div className="relative bg-gradient-brand rounded-3xl p-8 sm:p-10 overflow-hidden text-white">
-          {/* Decorazioni */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full translate-x-1/4 -translate-y-1/4" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full -translate-x-1/4 translate-y-1/4" />
-
-          <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Sparkles className="w-5 h-5" />
-                <span className="text-sm font-semibold text-white/80 uppercase tracking-wider">
-                  {isIT ? 'Piano Pro' : 'Pro Plan'}
+        {/* Checklist */}
+        <div
+          className="rounded-2xl p-6 mb-10 text-left"
+          style={{
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.07)',
+          }}
+        >
+          <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'rgba(255,255,255,0.25)' }}>
+            {isIT ? 'Cosa stiamo costruendo' : "What we're building"}
+          </p>
+          <div className="space-y-3">
+            {[
+              { done: true,  text: isIT ? 'Database ricette + pipeline AI' : 'Recipe database + AI pipeline' },
+              { done: true,  text: isIT ? '15 ricette seed pubblicate' : '15 seed recipes published' },
+              { done: true,  text: isIT ? 'Backend + API Supabase' : 'Backend + Supabase API' },
+              { done: false, text: isIT ? 'Design homepage (in corso 🔥)' : 'Homepage design (in progress 🔥)' },
+              { done: false, text: isIT ? 'Pagine ricette con step-by-step' : 'Recipe pages with step-by-step' },
+              { done: false, text: isIT ? 'Piano Pro + Stripe' : 'Pro plan + Stripe' },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div
+                  className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-xs"
+                  style={{
+                    background: item.done
+                      ? 'linear-gradient(135deg, #FF3A2D 0%, #FF8C00 100%)'
+                      : 'rgba(255,255,255,0.06)',
+                    border: item.done ? 'none' : '1px solid rgba(255,255,255,0.12)',
+                  }}
+                >
+                  {item.done ? '✓' : ''}
+                </div>
+                <span
+                  className="text-sm"
+                  style={{
+                    color: item.done ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)',
+                    textDecoration: item.done ? 'none' : 'none',
+                    fontWeight: item.done ? '500' : '400',
+                  }}
+                >
+                  {item.text}
                 </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-black mb-2">
-                {isIT ? 'Cucinare senza limiti' : 'Cook without limits'}
-              </h2>
-              <p className="text-white/80 text-sm sm:text-base max-w-md">
-                {isIT
-                  ? 'Valori nutrizionali, lista spesa automatica, raccolte illimitate. Solo 4,99€/mese.'
-                  : 'Nutrition facts, automatic shopping list, unlimited collections. Only €4.99/month.'}
-              </p>
-            </div>
-            <Link
-              href={`/${locale}/pro`}
-              className="shrink-0 flex items-center gap-2 px-6 py-3 bg-white text-brand-600 rounded-2xl font-bold text-sm hover:bg-brand-50 transition-colors shadow-lg"
-            >
-              {isIT ? 'Scopri Pro' : 'Discover Pro'}
-              <ChevronRight className="w-4 h-4" />
-            </Link>
+            ))}
           </div>
         </div>
+
+        {/* Contatti */}
+        <p className="text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>
+          {isIT ? 'Contatti: ' : 'Contact: '}
+          <a
+            href="mailto:brand@theviralrecipe.com"
+            className="hover:opacity-60 transition-opacity"
+            style={{ color: 'rgba(255,255,255,0.35)' }}
+          >
+            brand@theviralrecipe.com
+          </a>
+        </p>
+
       </div>
-    </section>
-  );
-}
 
-
-// ── HELPERS ────────────────────────────────────────────────────────────
-function SectionHeader({ title, href, label }: { title: string; href: string; label: string }) {
-  return (
-    <div className="flex items-center justify-between mb-6">
-      <h2 className="section-title mb-0">{title}</h2>
-      <Link
-        href={href}
-        className="flex items-center gap-1 text-sm font-medium text-brand-500 hover:text-brand-600 transition-colors"
-      >
-        {label}
-        <ChevronRight className="w-4 h-4" />
-      </Link>
-    </div>
-  );
-}
-
-function RecipeGridSkeleton({ count = 6 }: { count?: number }) {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      {Array.from({ length: count }).map((_, i) => (
-        <RecipeCardSkeleton key={i} />
-      ))}
-    </div>
-  );
-}
-
-function EmptyRecipes({ locale }: { locale: string }) {
-  return (
-    <div className="text-center py-12 text-text-muted">
-      <span className="text-4xl block mb-3">🍽️</span>
-      <p>{locale === 'it' ? 'Nessuna ricetta ancora. Torna presto!' : 'No recipes yet. Come back soon!'}</p>
+      {/* ── ANIMAZIONI CSS INLINE ──────────────────────────────────── */}
+      <style jsx global>{`
+        @keyframes pulse {
+          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
+          50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.3; }
+        }
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.3; }
+        }
+      `}</style>
     </div>
   );
 }
