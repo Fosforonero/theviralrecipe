@@ -21,20 +21,20 @@ export default async function HomePage({
       <div className="absolute inset-0 pointer-events-none">
         {/* Blob principale rosso */}
         <div
-          className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20"
+          className="wip-blob absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
           style={{
             background: 'radial-gradient(circle, #FF3A2D 0%, transparent 70%)',
             filter: 'blur(80px)',
-            animation: 'pulse 6s ease-in-out infinite',
+            opacity: 0.2,
           }}
         />
         {/* Blob arancio a destra */}
         <div
-          className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full opacity-15"
+          className="wip-blob-2 absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full"
           style={{
             background: 'radial-gradient(circle, #FF8C00 0%, transparent 70%)',
             filter: 'blur(60px)',
-            animation: 'pulse 8s ease-in-out infinite 2s',
+            opacity: 0.15,
           }}
         />
         {/* Grid pattern */}
@@ -83,11 +83,10 @@ export default async function HomePage({
           }}
         >
           <span
-            className="w-1.5 h-1.5 rounded-full"
+            className="wip-dot-blink w-1.5 h-1.5 rounded-full"
             style={{
               background: '#FF3A2D',
               boxShadow: '0 0 6px #FF3A2D',
-              animation: 'blink 1.5s ease-in-out infinite',
             }}
           />
           {isIT ? 'In costruzione' : 'Under construction'}
@@ -291,17 +290,6 @@ export default async function HomePage({
 
       </div>
 
-      {/* ── ANIMAZIONI CSS INLINE ──────────────────────────────────── */}
-      <style jsx global>{`
-        @keyframes pulse {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
-          50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.3; }
-        }
-        @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.3; }
-        }
-      `}</style>
     </div>
   );
 }

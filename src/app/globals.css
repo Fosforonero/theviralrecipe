@@ -249,6 +249,19 @@
 .card-grid > *:nth-child(9) { animation-delay: 400ms; }
 
 
+/* ── ANIMAZIONI WIP PAGE ─────────────────────────────────────────── */
+@keyframes wip-pulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%       { opacity: 0.3; transform: scale(1.15); }
+}
+@keyframes wip-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+.wip-blob       { animation: wip-pulse 6s ease-in-out infinite; }
+.wip-blob-2     { animation: wip-pulse 8s ease-in-out infinite 2s; }
+.wip-dot-blink  { animation: wip-blink 1.5s ease-in-out infinite; }
+
 /* ── SCROLLBAR GLOBALE (Webkit) ──────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;
