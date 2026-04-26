@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'TheViralRecipe — Le ricette più virali del web',
-  description: 'Le ricette più virali di TikTok, Instagram e YouTube. In arrivo.',
+  title: 'TheViralRecipe — Coming Soon',
+  description: 'Le ricette più virali di TikTok, Instagram e YouTube. In arrivo molto presto.',
 };
 
 export default async function HomePage({
@@ -15,281 +14,240 @@ export default async function HomePage({
   const isIT = locale === 'it';
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center relative overflow-hidden">
+    <>
+      {/* Copre header e footer al 100% */}
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9999,
+          background: '#080808',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
+          overflow: 'hidden',
+        }}
+      >
 
-      {/* ── SFONDO ANIMATO ──────────────────────────────────────────── */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Blob principale rosso */}
-        <div
-          className="wip-blob absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
-          style={{
-            background: 'radial-gradient(circle, #FF3A2D 0%, transparent 70%)',
-            filter: 'blur(80px)',
-            opacity: 0.2,
-          }}
-        />
-        {/* Blob arancio a destra */}
-        <div
-          className="wip-blob-2 absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full"
-          style={{
-            background: 'radial-gradient(circle, #FF8C00 0%, transparent 70%)',
+        {/* ── BLOB DI LUCE ──────────────────────────────────────── */}
+        <div style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden',
+        }}>
+          {/* Blob rosso centrale in alto */}
+          <div className="wip-blob" style={{
+            position: 'absolute',
+            top: '-10%', left: '50%', transform: 'translateX(-50%)',
+            width: 700, height: 500,
+            borderRadius: '50%',
+            background: 'radial-gradient(ellipse, rgba(255,50,30,0.18) 0%, transparent 70%)',
             filter: 'blur(60px)',
-            opacity: 0.15,
-          }}
-        />
-        {/* Grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '60px 60px',
-          }}
-        />
-        {/* Noise overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")',
-          }}
-        />
-      </div>
-
-      {/* ── CONTENUTO CENTRALE ─────────────────────────────────────── */}
-      <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
-
-        {/* Logo / wordmark */}
-        <div className="flex items-center justify-center gap-3 mb-12">
-          <div
-            className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-2xl"
-            style={{ background: 'linear-gradient(135deg, #FF3A2D 0%, #FF8C00 100%)' }}
-          >
-            🔥
-          </div>
-          <span className="text-white font-black text-2xl tracking-tight">
-            TheViral<span style={{ color: '#FF3A2D' }}>Recipe</span>
-          </span>
+          }} />
+          {/* Blob arancio in basso a destra */}
+          <div className="wip-blob-2" style={{
+            position: 'absolute',
+            bottom: '-5%', right: '-5%',
+            width: 500, height: 400,
+            borderRadius: '50%',
+            background: 'radial-gradient(ellipse, rgba(255,140,0,0.12) 0%, transparent 70%)',
+            filter: 'blur(60px)',
+          }} />
+          {/* Sottile griglia */}
+          <div style={{
+            position: 'absolute', inset: 0,
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),' +
+              'linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)',
+            backgroundSize: '64px 64px',
+          }} />
         </div>
 
-        {/* Badge */}
-        <div
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-8"
-          style={{
-            background: 'rgba(255,58,45,0.12)',
-            border: '1px solid rgba(255,58,45,0.3)',
-            color: '#FF6B5B',
-          }}
-        >
-          <span
-            className="wip-dot-blink w-1.5 h-1.5 rounded-full"
-            style={{
-              background: '#FF3A2D',
-              boxShadow: '0 0 6px #FF3A2D',
-            }}
-          />
-          {isIT ? 'In costruzione' : 'Under construction'}
-        </div>
+        {/* ── CONTENUTO ─────────────────────────────────────────── */}
+        <div style={{
+          position: 'relative', zIndex: 1,
+          textAlign: 'center', padding: '0 24px',
+          maxWidth: 560, width: '100%',
+        }}>
 
-        {/* Headline */}
-        <h1
-          className="font-black text-white mb-6 leading-[1.05]"
-          style={{
-            fontSize: 'clamp(2.5rem, 8vw, 5rem)',
-            letterSpacing: '-0.03em',
-          }}
-        >
-          {isIT ? (
-            <>
-              Le ricette più{' '}
-              <span
-                style={{
-                  background: 'linear-gradient(135deg, #FF3A2D 0%, #FF8C00 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  fontStyle: 'italic',
-                }}
-              >
-                virali
-              </span>
-              {' '}del web
-            </>
-          ) : (
-            <>
-              The most{' '}
-              <span
-                style={{
-                  background: 'linear-gradient(135deg, #FF3A2D 0%, #FF8C00 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  fontStyle: 'italic',
-                }}
-              >
-                viral
-              </span>
-              {' '}recipes on the web
-            </>
-          )}
-        </h1>
-
-        {/* Sottotitolo */}
-        <p
-          className="text-lg sm:text-xl mb-12 leading-relaxed"
-          style={{ color: 'rgba(255,255,255,0.5)' }}
-        >
-          {isIT
-            ? 'Stiamo costruendo qualcosa di straordinario. TikTok, Instagram, YouTube — tutte le ricette che stanno impazzendo sul web, in un unico posto.'
-            : "We're building something extraordinary. TikTok, Instagram, YouTube — all the recipes going viral, in one place."}
-        </p>
-
-        {/* Piattaforme */}
-        <div className="flex items-center justify-center gap-6 mb-12">
-          {[
-            { icon: '🎵', label: 'TikTok' },
-            { icon: '📸', label: 'Instagram' },
-            { icon: '▶️', label: 'YouTube' },
-          ].map((p) => (
-            <div
-              key={p.label}
-              className="flex flex-col items-center gap-2"
-            >
-              <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl"
-                style={{
-                  background: 'rgba(255,255,255,0.06)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  backdropFilter: 'blur(8px)',
-                }}
-              >
-                {p.icon}
-              </div>
-              <span className="text-xs font-medium" style={{ color: 'rgba(255,255,255,0.3)' }}>
-                {p.label}
-              </span>
+          {/* LOGO */}
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: 12,
+            marginBottom: 48,
+          }}>
+            <div style={{
+              width: 48, height: 48, borderRadius: 14,
+              background: 'linear-gradient(135deg, #FF3A2D 0%, #FF8C00 100%)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 24,
+              boxShadow: '0 0 32px rgba(255,58,45,0.35)',
+            }}>
+              🔥
             </div>
-          ))}
-        </div>
+            <span style={{
+              color: '#fff', fontWeight: 900, fontSize: 22, letterSpacing: '-0.03em',
+            }}>
+              TheViral<span style={{ color: '#FF3A2D' }}>Recipe</span>
+            </span>
+          </div>
 
-        {/* Stats cards */}
-        <div className="grid grid-cols-3 gap-4 mb-14">
-          {[
-            { value: '15+', label: isIT ? 'Ricette seed' : 'Seed recipes' },
-            { value: '8', label: isIT ? 'Categorie' : 'Categories' },
-            { value: '3', label: isIT ? 'Piattaforme' : 'Platforms' },
-          ].map((s) => (
-            <div
-              key={s.label}
-              className="rounded-2xl p-4"
-              style={{
+          {/* BADGE */}
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            padding: '6px 16px', borderRadius: 999,
+            background: 'rgba(255,58,45,0.1)',
+            border: '1px solid rgba(255,58,45,0.25)',
+            color: '#FF7060',
+            fontSize: 11, fontWeight: 700, letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            marginBottom: 28,
+          }}>
+            <span className="wip-dot-blink" style={{
+              display: 'inline-block',
+              width: 6, height: 6, borderRadius: '50%',
+              background: '#FF3A2D',
+              boxShadow: '0 0 8px #FF3A2D',
+            }} />
+            {isIT ? 'In arrivo' : 'Coming soon'}
+          </div>
+
+          {/* HEADLINE */}
+          <h1 style={{
+            color: '#fff',
+            fontWeight: 900,
+            fontSize: 'clamp(2.2rem, 7vw, 4.2rem)',
+            lineHeight: 1.05,
+            letterSpacing: '-0.04em',
+            margin: '0 0 20px',
+          }}>
+            {isIT ? (
+              <>Le ricette più{' '}
+                <span style={{
+                  background: 'linear-gradient(135deg, #FF3A2D 0%, #FFAB1A 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  fontStyle: 'italic',
+                }}>virali</span>
+                {' '}del web
+              </>
+            ) : (
+              <>The most{' '}
+                <span style={{
+                  background: 'linear-gradient(135deg, #FF3A2D 0%, #FFAB1A 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  fontStyle: 'italic',
+                }}>viral</span>
+                {' '}recipes on the web
+              </>
+            )}
+          </h1>
+
+          {/* SOTTOTITOLO */}
+          <p style={{
+            color: 'rgba(255,255,255,0.42)',
+            fontSize: 16, lineHeight: 1.65,
+            margin: '0 0 48px',
+          }}>
+            {isIT
+              ? 'Stiamo costruendo qualcosa di straordinario. TikTok, Instagram, YouTube — tutte le ricette virali in un unico posto.'
+              : "We're building something extraordinary. TikTok, Instagram, YouTube — all viral recipes in one place."}
+          </p>
+
+          {/* PROGRESS BAR */}
+          <div style={{ marginBottom: 40 }}>
+            <div style={{
+              display: 'flex', justifyContent: 'space-between',
+              marginBottom: 10,
+            }}>
+              <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: 12, fontWeight: 600 }}>
+                {isIT ? 'Completamento' : 'Progress'}
+              </span>
+              <span style={{ color: '#FF7060', fontSize: 12, fontWeight: 700 }}>78%</span>
+            </div>
+            <div style={{
+              width: '100%', height: 3, borderRadius: 999,
+              background: 'rgba(255,255,255,0.07)',
+            }}>
+              <div style={{
+                width: '78%', height: '100%', borderRadius: 999,
+                background: 'linear-gradient(90deg, #FF3A2D 0%, #FFAB1A 100%)',
+                boxShadow: '0 0 16px rgba(255,58,45,0.45)',
+              }} />
+            </div>
+          </div>
+
+          {/* FEATURES ROW */}
+          <div style={{
+            display: 'flex', gap: 12, justifyContent: 'center',
+            flexWrap: 'wrap', marginBottom: 48,
+          }}>
+            {[
+              { e: '🎵', t: 'TikTok' },
+              { e: '📸', t: 'Instagram' },
+              { e: '▶️', t: 'YouTube' },
+            ].map(p => (
+              <div key={p.t} style={{
+                display: 'flex', alignItems: 'center', gap: 8,
+                padding: '8px 16px', borderRadius: 12,
                 background: 'rgba(255,255,255,0.04)',
                 border: '1px solid rgba(255,255,255,0.07)',
-              }}
-            >
-              <div
-                className="text-2xl sm:text-3xl font-black mb-1"
-                style={{
-                  background: 'linear-gradient(135deg, #FF3A2D 0%, #FF8C00 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                {s.value}
-              </div>
-              <div className="text-xs font-medium" style={{ color: 'rgba(255,255,255,0.35)' }}>
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Barra di progresso */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.35)' }}>
-              {isIT ? 'Completamento' : 'Progress'}
-            </span>
-            <span className="text-xs font-bold" style={{ color: '#FF6B5B' }}>78%</span>
-          </div>
-          <div
-            className="w-full h-1.5 rounded-full overflow-hidden"
-            style={{ background: 'rgba(255,255,255,0.08)' }}
-          >
-            <div
-              className="h-full rounded-full"
-              style={{
-                width: '78%',
-                background: 'linear-gradient(90deg, #FF3A2D 0%, #FF8C00 100%)',
-                boxShadow: '0 0 12px rgba(255,58,45,0.5)',
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Checklist */}
-        <div
-          className="rounded-2xl p-6 mb-10 text-left"
-          style={{
-            background: 'rgba(255,255,255,0.03)',
-            border: '1px solid rgba(255,255,255,0.07)',
-          }}
-        >
-          <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'rgba(255,255,255,0.25)' }}>
-            {isIT ? 'Cosa stiamo costruendo' : "What we're building"}
-          </p>
-          <div className="space-y-3">
-            {[
-              { done: true,  text: isIT ? 'Database ricette + pipeline AI' : 'Recipe database + AI pipeline' },
-              { done: true,  text: isIT ? '15 ricette seed pubblicate' : '15 seed recipes published' },
-              { done: true,  text: isIT ? 'Backend + API Supabase' : 'Backend + Supabase API' },
-              { done: false, text: isIT ? 'Design homepage (in corso 🔥)' : 'Homepage design (in progress 🔥)' },
-              { done: false, text: isIT ? 'Pagine ricette con step-by-step' : 'Recipe pages with step-by-step' },
-              { done: false, text: isIT ? 'Piano Pro + Stripe' : 'Pro plan + Stripe' },
-            ].map((item, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <div
-                  className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-xs"
-                  style={{
-                    background: item.done
-                      ? 'linear-gradient(135deg, #FF3A2D 0%, #FF8C00 100%)'
-                      : 'rgba(255,255,255,0.06)',
-                    border: item.done ? 'none' : '1px solid rgba(255,255,255,0.12)',
-                  }}
-                >
-                  {item.done ? '✓' : ''}
-                </div>
-                <span
-                  className="text-sm"
-                  style={{
-                    color: item.done ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)',
-                    textDecoration: item.done ? 'none' : 'none',
-                    fontWeight: item.done ? '500' : '400',
-                  }}
-                >
-                  {item.text}
+              }}>
+                <span style={{ fontSize: 16 }}>{p.e}</span>
+                <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: 13, fontWeight: 600 }}>
+                  {p.t}
                 </span>
               </div>
             ))}
           </div>
+
+          {/* EMAIL */}
+          <div style={{
+            display: 'flex', gap: 8,
+            background: 'rgba(255,255,255,0.04)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: 16, padding: 6,
+            marginBottom: 32,
+          }}>
+            <input
+              type="email"
+              placeholder={isIT ? 'La tua email per essere avvisato' : 'Your email to be notified'}
+              style={{
+                flex: 1, background: 'transparent', border: 'none', outline: 'none',
+                color: '#fff', fontSize: 14, padding: '8px 12px',
+                fontFamily: 'inherit',
+              }}
+            />
+            <button
+              type="button"
+              style={{
+                background: 'linear-gradient(135deg, #FF3A2D 0%, #FF8C00 100%)',
+                border: 'none', borderRadius: 12, cursor: 'pointer',
+                color: '#fff', fontWeight: 700, fontSize: 13,
+                padding: '10px 20px', fontFamily: 'inherit',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {isIT ? 'Avvisami' : 'Notify me'}
+            </button>
+          </div>
+
+          {/* FOOTER NOTE */}
+          <p style={{ color: 'rgba(255,255,255,0.15)', fontSize: 12 }}>
+            {isIT ? '© 2026 TheViralRecipe' : '© 2026 TheViralRecipe'}
+            {'  ·  '}
+            <a
+              href="mailto:brand@theviralrecipe.com"
+              style={{ color: 'rgba(255,255,255,0.25)', textDecoration: 'none' }}
+            >
+              brand@theviralrecipe.com
+            </a>
+          </p>
+
         </div>
-
-        {/* Contatti */}
-        <p className="text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>
-          {isIT ? 'Contatti: ' : 'Contact: '}
-          <a
-            href="mailto:brand@theviralrecipe.com"
-            className="hover:opacity-60 transition-opacity"
-            style={{ color: 'rgba(255,255,255,0.35)' }}
-          >
-            brand@theviralrecipe.com
-          </a>
-        </p>
-
       </div>
-
-    </div>
+    </>
   );
 }
