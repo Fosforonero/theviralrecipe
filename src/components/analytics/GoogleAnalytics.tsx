@@ -1,53 +1,43 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import Script from 'next/script';
+/**
+ * Google Analytics 4 — caricato SOLO dopo consenso cookie analytics.
+ * Ascolta l'evento 'cookieConsentUpdated' per aggiornarsi senza refresh.
+ */
 
-interface GoogleAnalyticsProps {
+import Script from 'next/script';
+import { useEffect, useState } from 'react';
+
+interface Props {
   measurementId: string;
 }
 
-export function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps) {
+function getConsent(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    const raw = localStorage.getItem('cookie_preferences');
+    if (raw) {
+      const prefs = JSON.parse(raw);
+      return prefs.analytics === true;
+    }
+    return localStorage.getItem('cookie_consent') === 'accepted';
+  } catch {
+    return false;
+  }
+}
+
+export function GoogleAnalytics({ measurementId }: Props) {
   const [hasConsent, setHasConsent] = useState(false);
 
   useEffect(() => {
-    // Controlla il consenso al mount
-    const consent = localStorage.getItem('cookie_consent');
-    if (consent === 'accepted') {
-      setHasConsent(true);
-    } else if (consent === 'custom') {
-      try {
-        const prefs = JSON.parse(localStorage.getItem('cookie_preferences') || '{}');
-        if (prefs.analytics === true) {
-          setHasConsent(true);
-        }
-      } catch {
-        // ignore
-      }
-    }
+    setHasConsent(getConsent());
 
-    // Ascolta aggiornamenti in tempo reale
-    const handleConsentUpdate = () => {
-      const updatedConsent = localStorage.getItem('cookie_consent');
-      if (updatedConsent === 'accepted') {
-        setHasConsent(true);
-      } else if (updatedConsent === 'custom') {
-        try {
-          const prefs = JSON.parse(localStorage.getItem('cookie_preferences') || '{}');
-          setHasConsent(prefs.analytics === true);
-        } catch {
-          setHasConsent(false);
-        }
-      } else {
-        setHasConsent(false);
-      }
-    };
-
-    window.addEventListener('cookieConsentUpdated', handleConsentUpdate);
-    return () => window.removeEventListener('cookieConsentUpdated', handleConsentUpdate);
+    const handler = () => setHasConsent(getConsent());
+    window.addEventListener('cookieConsentUpdated', handler);
+    return () => window.removeEventListener('cookieConsentUpdated', handler);
   }, []);
 
-  if (!hasConsent) return null;
+  if (!measurementId || !hasConsent) return null;
 
   return (
     <>
@@ -55,22 +45,28 @@ export function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps) {
         src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
         strategy="afterInteractive"
       />
-      <Script
-        id="google-analytics"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${measurementId}', {
-              page_path: window.location.pathname,
-              anonymize_ip: true,
-              cookie_flags: 'SameSite=None;Secure'
-            });
-          `,
-        }}
-      />
+      <Script id="ga4-init" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${measurementId}', {
+            page_path: window.location.pathname,
+            anonymize_ip: true,
+            cookie_flags: 'SameSite=None;Secure'
+          });
+        `}
+      </Script>
     </>
   );
+}
+
+/** Helper per tracciare eventi custom da qualsiasi componente */
+export function trackEvent(
+  eventName: string,
+  params?: Record<string, string | number | boolean>
+) {
+  if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+    window.gtag('event', eventName, params);
+  }
 }

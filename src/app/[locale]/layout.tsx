@@ -6,14 +6,15 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { CookieConsent } from '@/components/legal/CookieConsent';
-import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 import { Toaster } from 'react-hot-toast';
 import { cn } from '@/lib/utils';
+import { VercelAnalytics } from '@/components/analytics/VercelAnalytics';
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
+import { AdSenseScript } from '@/components/analytics/AdSense';
+import { CookieConsent } from '@/components/legal/CookieConsent';
 import '../globals.css';
 
 // ── FONT ────────────────────────────────────────────────────────────
-// Plus Jakarta Sans: moderno, geometrico, molto leggibile
 const fontJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-jakarta',
@@ -21,7 +22,6 @@ const fontJakarta = Plus_Jakarta_Sans({
   weight: ['400', '500', '600', '700', '800'],
 });
 
-// Fraunces: serif display per titoli ricette (impatto editoriale)
 const fontFraunces = Fraunces({
   subsets: ['latin'],
   variable: '--font-fraunces',
@@ -83,7 +83,6 @@ export async function generateMetadata({
       },
     },
 
-    // hreflang per SEO multilingua
     alternates: {
       canonical: `${baseUrl}/${locale}`,
       languages: {
@@ -91,6 +90,11 @@ export async function generateMetadata({
         'en': `${baseUrl}/en`,
         'x-default': `${baseUrl}/it`,
       },
+    },
+
+    // Google Search Console verification
+    verification: {
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ?? '',
     },
   };
 }
@@ -106,31 +110,27 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
 
-  // Valida che la locale sia supportata — mostra 404 se non lo è
   if (!routing.locales.includes(locale as 'it' | 'en')) {
     notFound();
   }
 
   const messages = await getMessages();
 
+  const gaMeasurementId  = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID  ?? '';
+  const adsensePublisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? '';
+
   return (
-    <html
-      lang={locale}
-      // Classe per dark mode (aggiunta da JS se l'utente lo preferisce)
-      suppressHydrationWarning
-    >
+    <html lang={locale} suppressHydrationWarning>
       <head>
-        {/* Preconnect ai domini usati frequentemente */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
-        {/* Favicon */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
 
-        {/* Structured Data globale */}
+        {/* Structured Data: WebSite */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -162,26 +162,23 @@ export default async function LocaleLayout({
         )}
       >
         <NextIntlClientProvider messages={messages}>
-          {/* Skip to content per accessibilità */}
+          {/* Accessibilità: skip to content */}
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-500 focus:text-white focus:rounded-lg"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50
+                       focus:px-4 focus:py-2 focus:bg-brand-500 focus:text-white focus:rounded-lg"
           >
             {locale === 'it' ? 'Vai al contenuto principale' : 'Skip to main content'}
           </a>
 
-          {/* Header globale */}
           <Header locale={locale} />
 
-          {/* Contenuto principale */}
           <main id="main-content" className="min-h-screen">
             {children}
           </main>
 
-          {/* Footer */}
           <Footer locale={locale} />
 
-          {/* Notifiche toast */}
           <Toaster
             position="bottom-center"
             toastOptions={{
@@ -197,12 +194,16 @@ export default async function LocaleLayout({
             }}
           />
 
-          {/* GDPR Cookie Consent Banner */}
-          <CookieConsent />
+          {/* ── ANALYTICS & ADS (caricati solo con consenso) ─────── */}
+          <GoogleAnalytics measurementId={gaMeasurementId} />
+          <AdSenseScript publisherId={adsensePublisherId} />
 
-          {/* Google Analytics 4 — si attiva solo dopo consenso */}
-          <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
+          {/* ── GDPR Cookie Consent Banner ──────────────────────── */}
+          <CookieConsent />
         </NextIntlClientProvider>
+
+        {/* Vercel Analytics: anonimo, no consenso richiesto */}
+        <VercelAnalytics />
       </body>
     </html>
   );
