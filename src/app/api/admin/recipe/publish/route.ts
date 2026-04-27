@@ -5,10 +5,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseAdminClient, getServerUser } from '@/lib/supabase/server';
 
+function isAdmin(email: string | undefined): boolean {
+  if (!email) return false;
+  const allowed = (process.env.ADMIN_EMAILS ?? '')
+    .split(',')
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
+  return allowed.includes(email.toLowerCase());
+}
+
 export async function POST(req: NextRequest) {
-  // Verifica che l'utente sia admin (aggiungere logica di ruoli se necessario)
   const user = await getServerUser();
-  if (!user) return NextResponse.json({ error: 'Non autenticato' }, { status: 401 });
+  if (!user) {
+    return NextResponse.json({ error: 'Non autenticato' }, { status: 401 });
+  }
+  if (!isAdmin(user.email)) {
+    return NextResponse.json({ error: 'Non autorizzato' }, { status: 403 });
+  }
 
   const formData = await req.formData();
   const recipeId = formData.get('recipeId') as string;

@@ -13,10 +13,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { slugify } from '@/lib/utils';
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY!,
-});
-
 // ── TIPI ─────────────────────────────────────────────────────────────
 
 export interface Ingredient {
@@ -138,6 +134,14 @@ export async function processRecipeWithAI(params: {
   const { transcript, sourceTitle, sourceAuthor } = params;
 
   if (!transcript?.trim()) return null;
+
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    console.error('[ai-process] ANTHROPIC_API_KEY non configurata');
+    return null;
+  }
+
+  const anthropic = new Anthropic({ apiKey });
 
   try {
     const message = await anthropic.messages.create({

@@ -15,6 +15,12 @@ export const maxDuration = 60;
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
+  const isProd = process.env.NODE_ENV === 'production';
+
+  if (isProd && !cronSecret) {
+    console.error('[Cron/viral-scores] CRON_SECRET non configurato in produzione — richiesta bloccata');
+    return NextResponse.json({ error: 'CRON_SECRET non configurato' }, { status: 500 });
+  }
 
   if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

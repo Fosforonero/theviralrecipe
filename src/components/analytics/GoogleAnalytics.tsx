@@ -8,6 +8,16 @@
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
 
+declare global {
+  interface Window {
+    gtag?: (
+      command: 'event',
+      eventName: string,
+      params?: Record<string, string | number | boolean>
+    ) => void;
+  }
+}
+
 interface Props {
   measurementId: string;
 }

@@ -14,9 +14,15 @@ export const runtime = 'nodejs';
 export const maxDuration = 300; // 5 minuti max (Vercel Pro)
 
 export async function GET(req: NextRequest) {
-  // Verifica che la chiamata venga dal Cron Vercel (o da noi in dev)
+  // Verifica autenticazione: CRON_SECRET obbligatorio in produzione
   const authHeader = req.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
+  const isProd = process.env.NODE_ENV === 'production';
+
+  if (isProd && !cronSecret) {
+    console.error('[Cron/discover] CRON_SECRET non configurato in produzione — richiesta bloccata');
+    return NextResponse.json({ error: 'CRON_SECRET non configurato' }, { status: 500 });
+  }
 
   if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

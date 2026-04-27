@@ -102,7 +102,8 @@ async function searchYouTube(keyword: string, maxResults = 10): Promise<string[]
  */
 async function getYouTubeVideoDetails(videoIds: string[]): Promise<YouTubeVideoDetail[]> {
   if (!videoIds.length) return [];
-  const apiKey = process.env.YOUTUBE_API_KEY!;
+  const apiKey = process.env.YOUTUBE_API_KEY;
+  if (!apiKey) return [];
 
   const url = new URL('https://www.googleapis.com/youtube/v3/videos');
   url.searchParams.set('part', 'snippet,statistics,contentDetails');

@@ -1,15 +1,16 @@
 import createNextIntlPlugin from 'next-intl/plugin';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ⚠️ TEMPORANEO: la pipeline ha errori TS/lint dovuti ai tipi Supabase non
-  // ancora generati. Bypassati in build per sbloccare il deploy. Da riabilitare
-  // (rimuovere queste due chiavi) appena `npm run supabase:types` viene lanciato
-  // in locale e il file src/lib/supabase/types.ts contiene i tipi reali.
-  typescript: { ignoreBuildErrors: true },
-  eslint: { ignoreDuringBuilds: true },
+  // Evita che Turbopack scelga un lockfile in una cartella padre come workspace root.
+  turbopack: {
+    root: __dirname,
+  },
 
   // Ottimizzazione immagini
   images: {

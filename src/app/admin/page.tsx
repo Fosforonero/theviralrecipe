@@ -7,9 +7,19 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { createServerSupabaseAdminClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
+import { createServerSupabaseAdminClient, getServerUser } from '@/lib/supabase/server';
 import { CheckCircle2, XCircle, Clock, Eye, RefreshCw, Flame } from 'lucide-react';
 import { formatRelativeDate, shimmerDataUrl } from '@/lib/utils';
+
+function isAdmin(email: string | undefined): boolean {
+  if (!email) return false;
+  const allowed = (process.env.ADMIN_EMAILS ?? '')
+    .split(',')
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
+  return allowed.includes(email.toLowerCase());
+}
 
 export default async function AdminDashboard({
   searchParams,
@@ -17,6 +27,13 @@ export default async function AdminDashboard({
   searchParams: Promise<{ status?: string }>;
 }) {
   const { status = 'pending' } = await searchParams;
+
+  // Verifica che l'utente sia autenticato e admin
+  const user = await getServerUser();
+  if (!user || !isAdmin(user.email)) {
+    redirect('/');
+  }
+
   const supabase = await createServerSupabaseAdminClient();
 
   // Statistiche rapide

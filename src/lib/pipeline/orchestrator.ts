@@ -23,17 +23,7 @@ export async function processPipelineJob(jobId: string): Promise<{
 }> {
   const supabase = await createServerSupabaseAdminClient();
 
-  // ── Segna il job come "in processing" ─────────────────────────
-  await supabase
-    .from('pipeline_jobs')
-    .update({
-      status: 'processing',
-      started_at: new Date().toISOString(),
-      attempts: supabase.rpc('increment', { x: 1 }),  // incrementa attempts
-    })
-    .eq('id', jobId);
-
-  // Recupera il job
+  // ── Recupera il job ───────────────────────────────────────────
   const { data: job, error: jobError } = await supabase
     .from('pipeline_jobs')
     .select('*')
@@ -43,6 +33,16 @@ export async function processPipelineJob(jobId: string): Promise<{
   if (jobError || !job) {
     return { success: false, error: 'Job non trovato' };
   }
+
+  // ── Segna il job come "in processing" ─────────────────────────
+  await supabase
+    .from('pipeline_jobs')
+    .update({
+      status: 'processing',
+      started_at: new Date().toISOString(),
+      attempts: (job.attempts ?? 0) + 1,
+    })
+    .eq('id', jobId);
 
   try {
     // ── FASE 1: EXTRACTION ──────────────────────────────────────
